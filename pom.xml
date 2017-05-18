@@ -259,5 +259,6 @@
 	</build>
   <modules>
     <module>shiro-service</module>
+    <module>shiro-ssm</module>
   </modules>
 </project>

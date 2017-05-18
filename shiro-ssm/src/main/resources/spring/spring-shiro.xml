@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 定义本次要使用的Realm -->
+	<bean id="memberRealm" class="cn.mldn.shiro.realm.MemberRealm" />
+	<!-- Shiro中的所有验证的配置处理都应该交给SecurityManager，由于不是WEB与Shiro整合，所以所有的配置项必须由用户自己处理 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 当前使用的Realm为之前定义好的MemberRealm -->
+		<property name="realm" ref="memberRealm"/> 
+	</bean>
+	<!-- Shiro之中最为重要的概念就是过滤的操作概念，本次主要是进行Shiro的过滤器的相关配置 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 明确表示此处要使用的SecurityManager类型的对象引用关系 -->
+		<property name="securityManager" ref="securityManager"/>
+		<!-- 程序出现了错误之后的跳转配置路径 -->
+		<property name="loginUrl" value="/login.jsp"/>
+		<!-- 如果授权出现了错误则跳转到此路径之中 -->
+		<property name="unauthorizedUrl" value="/unauth.jsp"/>
+		<!-- 描述的是登录成功后的跳转页 -->
+		<property name="successUrl" value="/pages/welcome.jsp"/>
+		<!-- 配置所有的访问跳转处理路径 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/pages/welcome.jsp=authc
+			</value>
+		</property> 
+	</bean>
+	
+</beans>

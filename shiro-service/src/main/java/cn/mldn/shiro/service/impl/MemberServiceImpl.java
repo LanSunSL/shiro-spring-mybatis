@@ -24,7 +24,7 @@ public class MemberServiceImpl implements IMemberService {
 	
 	@Override
 	public Member get(String mid) {
-		return this.memberDAO.findByMid(mid);
+		return this.memberDAO.findById(mid);
 	}
 
 	@Override

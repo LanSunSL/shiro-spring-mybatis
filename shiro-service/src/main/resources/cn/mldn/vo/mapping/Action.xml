@@ -4,6 +4,6 @@
 <mapper namespace="cn.mldn.shiro.dao.IActionDAO">
 	<select id="findAllIdByMember" parameterType="string" resultType="string">
 		SELECT actid FROM action WHERE rid IN (
-			SELECT rid FROM member_role WHERR mid=#{mid});
+			SELECT rid FROM member_role WHERE mid=#{mid});
 	</select>
 </mapper>
