@@ -13,7 +13,7 @@
 </shiro:guest>
 <shiro:notAuthenticated>
 <%!
-	public static final String LOGIN_URL = "login.action" ;
+	public static final String LOGIN_URL = "login.jsp" ;
 %>
 <h1>${error}</h1>
 <form action="<%=LOGIN_URL%>" method="post">
