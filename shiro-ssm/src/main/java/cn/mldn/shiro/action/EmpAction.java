@@ -1,34 +1,31 @@
 package cn.mldn.shiro.action;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.mldn.shiro.service.IEmpService;
+
 @Controller
 @RequestMapping("/pages/back/emp/*")
 public class EmpAction {
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	@Resource
+	private IEmpService empService;
 	@RequestMapping("add")
-	@RequiresAuthentication
 	public ModelAndView add() {
-		log.info("**************** 【EmpAction.add()】 ****************");
+		this.empService.add();
 		return null;
 	}
 	@RequestMapping("edit")
-	@RequiresRoles("dept")
 	public ModelAndView edit() {
-		log.info("**************** 【EmpAction.edit()】 ****************");
+		this.empService.edit();
 		return null;
 	}
 	@RequestMapping("delete")
-	@RequiresPermissions("news:add")
 	public ModelAndView delete() {
-		log.info("**************** 【EmpAction.delete()】 ****************");
+		this.empService.delete();
 		return null;
 	}
 }
