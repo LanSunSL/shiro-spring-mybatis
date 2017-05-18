@@ -39,6 +39,7 @@
 		<!-- 配置所有的访问跳转处理路径 -->
 		<property name="filterChainDefinitions">
 			<value>
+				/pages/back/**=authc
 				/login.jsp=authc
 				/pages/welcome.jsp=authc
 			</value>
