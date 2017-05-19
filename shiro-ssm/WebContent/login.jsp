@@ -19,6 +19,7 @@
 <form action="<%=LOGIN_URL%>" method="post">
 	用户名：<input type="text" name="mid" id="mid"><br>
 	密&nbsp;码：<input type="password" name="password" id="password"><br>
+	<input type="checkbox" name="rememberme" id="rememberme" value="true">RememberMe<br>
 	<input type="submit" value="登录">
 </form>
 </shiro:notAuthenticated>
