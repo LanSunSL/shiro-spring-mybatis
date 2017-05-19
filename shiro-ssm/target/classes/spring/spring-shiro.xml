@@ -7,10 +7,16 @@
 
 	<!-- 定义本次要使用的Realm -->
 	<bean id="memberRealm" class="cn.mldn.shiro.realm.MemberRealm" />
+	
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro/ehcache.xml"/>
+	</bean>
+	
 	<!-- Shiro中的所有验证的配置处理都应该交给SecurityManager，由于不是WEB与Shiro整合，所以所有的配置项必须由用户自己处理 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 当前使用的Realm为之前定义好的MemberRealm -->
 		<property name="realm" ref="memberRealm"/> 
+		<property name="cacheManager" ref="cacheManager"/>
 	</bean>
 	<!-- 内置的自定义的登录控制过滤器 -->
 	<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
