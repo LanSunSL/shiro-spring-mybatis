@@ -7,9 +7,34 @@
 
 	<!-- 定义本次要使用的Realm -->
 	<bean id="memberRealm" class="cn.mldn.shiro.realm.MemberRealm" />
-	
+	<!-- 缓存管理 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManagerConfigFile" value="classpath:shiro/ehcache.xml"/>
+	</bean>
+	
+	<!-- Java UUID sessionId生成器 -->
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+	<!-- 会话策略 -->
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+	</bean>
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<property name="name" value="mldn-session-id"/>	<!-- 设置的sessionId的name -->
+		<property name="httpOnly" value="true"/>	<!-- 只支持http -->
+		<property name="maxAge" value="-1"/> 	<!-- 浏览器关闭后cookie失效 -->
+	</bean>
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO"/>
+		<property name="globalSessionTimeout" value="300000"/>
+		<property name="deleteInvalidSessions" value="true"/>
+		<property name="sessionValidationSchedulerEnabled" value="true"/>
+		<property name="sessionIdCookie" ref="sessionIdCookie"/>
+		<property name="sessionIdCookieEnabled" value="true"/>	
+	</bean>
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+		<property name="sessionValidationInterval" value="100000"/>
+		<property name="sessionManager" ref="sessionManager"/>
 	</bean>
 	
 	<!-- Shiro中的所有验证的配置处理都应该交给SecurityManager，由于不是WEB与Shiro整合，所以所有的配置项必须由用户自己处理 -->
@@ -17,6 +42,7 @@
 		<!-- 当前使用的Realm为之前定义好的MemberRealm -->
 		<property name="realm" ref="memberRealm"/> 
 		<property name="cacheManager" ref="cacheManager"/>
+		<property name="sessionManager" ref="sessionManager"/>
 	</bean>
 	<!-- 内置的自定义的登录控制过滤器 -->
 	<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">

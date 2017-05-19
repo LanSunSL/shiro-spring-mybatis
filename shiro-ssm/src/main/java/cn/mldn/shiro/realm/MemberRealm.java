@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -26,7 +27,6 @@ public class MemberRealm  extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
-		
 		System.out.println("============== 1、进行认证操作处理 ==============");
 		String userid = token.getPrincipal().toString(); // 用户名
 		// 定义需要进行返回的操作数据信息项
@@ -47,6 +47,7 @@ public class MemberRealm  extends AuthorizingRealm {
 			if (member.getLocked().equals(1)) { // 1表示非0，非0就是true
 				throw new LockedAccountException("被锁了，求解锁去吧！");
 			}
+			SecurityUtils.getSubject().getSession().setAttribute("name", "common user");
 		} catch (AuthenticationException e) {
 			throw e;
 		}

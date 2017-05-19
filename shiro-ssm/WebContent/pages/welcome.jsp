@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>大爷您来玩了！</h1>
+	<h1>${name}大爷, 您来玩了！</h1>
 	<h1>
 		<shiro:hasPermission name="news:add">
 			具备有添加新闻的权限
