@@ -6,7 +6,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- 定义本次要使用的Realm -->
-	<bean id="memberRealm" class="cn.mldn.shiro.realm.MemberRealm" />
+	<bean id="memberRealm" class="cn.mldn.shiro.realm.MemberRealm" >
+		<property name="credentialsMatcher" >
+			<bean class="cn.mldn.shiro.realm.crm.DefaultCredentialsMatcher"/>
+		</property>
+	</bean>
 	
 	<!-- 缓存管理 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
