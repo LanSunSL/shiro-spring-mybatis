@@ -62,10 +62,12 @@
 	</bean>
 	
 	<!-- 内置的自定义的登录控制过滤器 -->
-	<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+	<bean id="formAuthenticationFilter" class="cn.mldn.shiro.realm.filter.DefaultFormAuthenticationFilter">
 		<property name="usernameParam" value="mid"/>
 		<property name="passwordParam" value="password"/>
 		<property name="rememberMeParam" value="rememberme"/>
+		<property name="randname" value="rand"/>
+		<property name="randparam" value="code"/>
 		<property name="loginUrl" value="/login.jsp"/>
 		<property name="failureKeyAttribute" value="error"/>
 	</bean>
