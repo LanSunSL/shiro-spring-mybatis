@@ -16,5 +16,11 @@ public class TestShiro {
 		UsernamePasswordToken token = new UsernamePasswordToken("admin", "2E866BF58289E01583AD418F486A69DF");
 		subject.login(token);
 		System.out.println(subject.getPrincipal());
+		System.out.println(subject.hasRole("dept"));
+		System.out.println(subject.hasRole("news"));
+		System.out.println(subject.isPermitted("news:list"));
+		System.out.println(subject.isPermitted("member:add"));
+		System.out.println(subject.isPermittedAll("news:list","news:add","news:edit"));
+		System.out.println(subject.isPermittedAll("news:list","news:add","news:edit","member:add"));
 	}
 }
