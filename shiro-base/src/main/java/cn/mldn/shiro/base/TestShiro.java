@@ -6,13 +6,14 @@ import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 
-public class App {
+
+public class TestShiro {
 	public static void main(String[] args) {
 		IniSecurityManagerFactory factory = new IniSecurityManagerFactory("classpath:shiro.ini");
 		SecurityManager securityManager = factory.getInstance();
 		SecurityUtils.setSecurityManager(securityManager);
 		Subject subject = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken("hello", "world");
+		UsernamePasswordToken token = new UsernamePasswordToken("admin", "2E866BF58289E01583AD418F486A69DF");
 		subject.login(token);
 		System.out.println(subject.getPrincipal());
 	}
