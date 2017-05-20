@@ -290,5 +290,6 @@
     <module>shiro-service</module>
     <module>shiro-ssm</module>
     <module>shiro-base</module>
+    <module>shiro-web</module>
   </modules>
 </project>
